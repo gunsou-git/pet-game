@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>myPetGame</title>
+  <script src="js/jquery-2.1.3.min.js"></script>
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <h1>ペット育成ゲーム</h1>
+
+  <main>
+    <!-- ペット表示エリア -->
+    <div class="pet-area">
+      <!-- ペットのイラスト（SVG） -->
+      <div id="pet" class="pet happy">
+      <svg class="pet-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-label="ペット">
+        <!-- からだ -->
+        <path d="M158.0,158.0 Q168.2,168.2 152.3,172.8 Q154.7,186.7 136.2,184.6 Q130.4,199.4 112.9,191.1 Q100.0,204.0 87.1,191.1 Q69.6,199.4 63.8,184.6 Q45.3,186.7 47.7,172.8 Q31.8,168.2 42.0,158.0 Q31.8,147.8 47.7,143.2 Q45.3,129.3 63.8,131.4 Q69.6,116.6 87.1,124.9 Q100.0,112.0 112.9,124.9 Q130.4,116.6 136.2,131.4 Q154.7,129.3 152.3,143.2 Q168.2,147.8 158.0,158.0 Z" fill="#1c1b20"/>
+        <ellipse cx="100" cy="165" rx="26" ry="18" fill="#2c2b31"/>
+        <!-- みみ -->
+        <path d="M48,62 L58,20 L84,48 Z" fill="#1c1b20"/>
+        <path d="M152,62 L142,20 L116,48 Z" fill="#1c1b20"/>
+        <path d="M58,52 L61,32 L74,47 Z" fill="#4a3a3a"/>
+        <path d="M142,52 L139,32 L126,47 Z" fill="#4a3a3a"/>
+        <!-- あたま（もふもふ） -->
+        <path d="M159.7,100.4 Q170.3,113.2 154.1,118.4 Q159.3,134.1 141.9,133.7 Q141.1,150.4 124.7,144.2 Q118.0,159.9 104.5,148.9 Q92.7,161.7 83.7,147.0 Q68.3,155.4 65.0,138.8 Q47.7,141.8 50.4,125.4 Q33.5,122.5 41.9,108.3 Q27.2,100.0 40.3,89.6 Q29.7,76.8 45.9,71.6 Q40.7,55.9 58.1,56.3 Q58.9,39.6 75.3,45.8 Q82.0,30.1 95.5,41.1 Q107.3,28.3 116.3,43.0 Q131.7,34.6 135.0,51.2 Q152.3,48.2 149.6,64.6 Q166.5,67.5 158.1,81.7 Q172.8,90.0 159.7,100.4 Z" fill="#1c1b20"/>
+        <path d="M60,80 q6,-8 12,-2 M128,78 q6,-6 12,2 M70,135 q5,6 10,2 M120,137 q5,4 10,-2" stroke="#3d3c44" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <!-- 白っぽい口元 -->
+        <ellipse cx="100" cy="120" rx="25" ry="19" fill="#bfbfc4"/>
+        <ellipse cx="100" cy="117" rx="18" ry="13" fill="#e4e4e8"/>
+        <!-- ほっぺ -->
+        <g class="m-happy">
+          <ellipse cx="66" cy="117" rx="8" ry="5" fill="#ff8fa3" opacity="0.45"/>
+          <ellipse cx="134" cy="117" rx="8" ry="5" fill="#ff8fa3" opacity="0.45"/>
+        </g>
+        <!-- まゆ（こまり顔・かなしい顔） -->
+        <g class="m-worry m-sad">
+          <path d="M70,88 L86,83" stroke="#9a9aa2" stroke-width="3" stroke-linecap="round"/>
+          <path d="M130,88 L114,83" stroke="#9a9aa2" stroke-width="3" stroke-linecap="round"/>
+        </g>
+        <!-- め -->
+        <circle cx="79" cy="100" r="10" fill="#2a1710"/>
+        <circle cx="121" cy="100" r="10" fill="#2a1710"/>
+        <circle cx="82" cy="96" r="3.5" fill="#fff"/>
+        <circle cx="124" cy="96" r="3.5" fill="#fff"/>
+        <circle cx="76" cy="103" r="1.6" fill="#fff"/>
+        <circle cx="118" cy="103" r="1.6" fill="#fff"/>
+        <!-- はな -->
+        <ellipse cx="100" cy="112" rx="8" ry="6" fill="#111"/>
+        <ellipse cx="97" cy="110" rx="2.5" ry="1.5" fill="#666"/>
+        <!-- くち：にこにこ（舌ぺろ） -->
+        <g class="m-happy">
+          <path d="M86,120 Q100,148 114,120 Q100,126 86,120 Z" fill="#3a1414"/>
+          <path d="M92,128 Q100,148 108,128 Q100,124 92,128 Z" fill="#f48aa6"/>
+          <path d="M100,129 L100,138" stroke="#d96a88" stroke-width="1.5"/>
+        </g>
+        <!-- くち：こまり -->
+        <path class="m-worry" d="M90,126 q5,-4 10,0 q5,4 10,0" stroke="#333" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <!-- くち：かなしい＋なみだ -->
+        <g class="m-sad">
+          <path d="M90,129 Q100,120 110,129" stroke="#333" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M70,108 q-4,8 0,11 q4,-3 0,-11 Z" fill="#7ec8f2"/>
+          <path d="M130,108 q-4,8 0,11 q4,-3 0,-11 Z" fill="#7ec8f2"/>
+        </g>
+      </svg>
+      </div>
+      <p id="message" class="message">なかよく お世話してね！</p>
+    </div>
+
+    <!-- バロメータ（ボタンの上） -->
+    <div class="meter-area">
+      <div class="meter">
+        <span class="meter-label">おなか</span>
+        <div class="meter-bar"><div id="bar-onaka" class="meter-fill"></div></div>
+        <span id="num-onaka" class="meter-num">100</span>
+      </div>
+      <div class="meter">
+        <span class="meter-label">ごきげん</span>
+        <div class="meter-bar"><div id="bar-gokigen" class="meter-fill"></div></div>
+        <span id="num-gokigen" class="meter-num">100</span>
+      </div>
+      <div class="meter">
+        <span class="meter-label">きれい</span>
+        <div class="meter-bar"><div id="bar-kirei" class="meter-fill"></div></div>
+        <span id="num-kirei" class="meter-num">100</span>
+      </div>
+    </div>
+
+    <!-- お世話ボタン -->
+    <div class="button-area">
+      <button id="gohan" class="care-btn">🍖 ごはん</button>
+      <button id="asobu" class="care-btn">⚽ あそぶ</button>
+      <button id="souji" class="care-btn">🧹 そうじ</button>
+    </div>
+
+    <!-- リセットボタン（ボタンの下） -->
+    <div class="reset-area">
+      <button id="reset">さいしょから</button>
+    </div>
+  </main>
+
+  <!-- お世話日記 -->
+  <section class="diary">
+    <h2>お世話日記</h2>
+    <ul id="list">
+      <!-- ここに日記が挿入される -->
+    </ul>
+  </section>
+
+  <footer>
+    Gs
+  </footer>
+
+  <!-- 以下にjsを書いていきます -->
+  <script>
+
+    // ===== 設定 =====
+    const MAX = 100;           // バロメータの最大値
+    const DOWN_MAX = 10;       // 5秒ごとに減る量の最大値（1〜10でランダム）
+    const UP = 20;             // ボタンを押したときに増える量
+    const INTERVAL = 5000;     // 減る間隔（ミリ秒）＝5秒
+    const START_MIN = 50;      // 最初のバロメータの最小値
+    const START_MAX = 80;      // 最初のバロメータの最大値
+
+    // localStorageのキー
+    const KEY_STATUS = "pet_status";
+    const KEY_DIARY = "pet_diary";
+
+    // 最初のステータスを作る（START_MIN〜START_MAXのランダム）
+    function newStatus() {
+      const r = () => Math.floor(Math.random() * (START_MAX - START_MIN + 1)) + START_MIN;
+      return { onaka: r(), gokigen: r(), kirei: r(), gameover: false };
+    }
+
+    // ステータス
+    let status = newStatus();
+    // 日記の配列
+    let diary = [];
+    // タイマー
+    let timer = null;
+
+
+    // ===== 関数 =====
+
+    // 現在時刻を「2026/11/19 12:34:56」の形で返す
+    function nowText() {
+      const d = new Date();
+      const pad = (n) => String(n).padStart(2, "0");
+      return `${d.getFullYear()}/${pad(d.getMonth() + 1)}/${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+    }
+
+    // ステータスをlocalStorageに保存
+    function saveStatus() {
+      localStorage.setItem(KEY_STATUS, JSON.stringify(status));
+    }
+
+    // 日記をlocalStorageに保存
+    function saveDiary() {
+      localStorage.setItem(KEY_DIARY, JSON.stringify(diary));
+    }
+
+    // 日記を1件追加（画面＋localStorage）
+    function addDiary(text) {
+      const item = { time: nowText(), text: text };
+      diary.push(item);
+      saveDiary();
+      showDiaryItem(item);
+    }
+
+    // 日記を1件画面に表示（新しいものが上）
+    function showDiaryItem(item) {
+      const html = `
+      <li>
+        <p class="time">${item.time}</p>
+        <p>${item.text}</p>
+      </li>
+    `;
+      $("#list").prepend(html);
+    }
+
+    // バロメータの見た目を更新
+    function render() {
+      ["onaka", "gokigen", "kirei"].forEach(function (name) {
+        const value = status[name];
+        $("#bar-" + name).css("width", value + "%");
+        $("#num-" + name).text(value);
+
+        // 残りが少ないと色を変える
+        $("#bar-" + name).removeClass("warn danger");
+        if (value <= 20) {
+          $("#bar-" + name).addClass("danger");
+        } else if (value <= 50) {
+          $("#bar-" + name).addClass("warn");
+        }
+      });
+
+      // ペットの表情
+      const min = Math.min(status.onaka, status.gokigen, status.kirei);
+      // 表情を切り替える（happy / worry / sad）
+      $("#pet").removeClass("happy worry sad gone");
+      if (status.gameover) {
+        $("#pet").addClass("sad gone");
+        $("#message").text("ペットはいなくなってしまった… GAME OVER");
+        $(".pet-area").addClass("over");
+        $(".care-btn").prop("disabled", true);
+      } else {
+        $(".pet-area").removeClass("over");
+        $(".care-btn").prop("disabled", false);
+        if (min <= 20) {
+          $("#pet").addClass("sad");
+          $("#message").text("たすけて…！");
+        } else if (min <= 50) {
+          $("#pet").addClass("worry");
+          $("#message").text("ちょっと お世話してほしいな");
+        } else {
+          $("#pet").addClass("happy");
+          $("#message").text("げんきいっぱい！");
+        }
+      }
+    }
+
+    // 0になっていないかチェック
+    function checkGameOver() {
+      if (status.onaka <= 0 || status.gokigen <= 0 || status.kirei <= 0) {
+        status.gameover = true;
+        clearInterval(timer);
+        saveStatus();
+        addDiary("ペットがいなくなってしまった…（GAME OVER）");
+      }
+    }
+
+    // 5秒ごとにランダムで減らす
+    function decrease() {
+      ["onaka", "gokigen", "kirei"].forEach(function (name) {
+        const down = Math.floor(Math.random() * DOWN_MAX) + 1; // 1〜10
+        status[name] = Math.max(0, status[name] - down);
+      });
+      saveStatus();
+      checkGameOver();
+      render();
+    }
+
+    // タイマー開始
+    function startTimer() {
+      clearInterval(timer);
+      timer = setInterval(decrease, INTERVAL);
+    }
+
+    // お世話ボタンの共通処理
+    function care(name, label) {
+      if (status.gameover) return;
+      status[name] = Math.min(MAX, status[name] + UP);
+      saveStatus();
+      addDiary(label);
+      render();
+    }
+
+
+    // ===== イベント =====
+
+    //1.ごはん クリックイベント
+    $("#gohan").on("click", function () {
+      care("onaka", "🍖 ごはんをあげた");
+    });
+
+    //2.あそぶ クリックイベント
+    $("#asobu").on("click", function () {
+      care("gokigen", "⚽ いっしょにあそんだ");
+    });
+
+    //3.そうじ クリックイベント
+    $("#souji").on("click", function () {
+      care("kirei", "🧹 おそうじをした");
+    });
+
+    //4.さいしょから クリックイベント
+    $("#reset").on("click", function () {
+      localStorage.removeItem(KEY_STATUS);
+      localStorage.removeItem(KEY_DIARY);
+      status = newStatus();
+      diary = [];
+      $("#list").empty();
+      saveStatus();
+      addDiary("🐣 あたらしいペットがやってきた！");
+      render();
+      startTimer();
+    });
+
+
+    //5.ページ読み込み：保存データ取得表示
+    const savedStatus = localStorage.getItem(KEY_STATUS);
+    const savedDiary = localStorage.getItem(KEY_DIARY);
+
+    if (savedStatus) {
+      status = JSON.parse(savedStatus);
+    }
+    if (savedDiary) {
+      diary = JSON.parse(savedDiary);
+      diary.forEach(function (item) {
+        showDiaryItem(item);
+      });
+    }
+    if (!savedStatus) {
+      // はじめて遊ぶとき
+      saveStatus();
+      addDiary("🐣 あたらしいペットがやってきた！");
+    }
+
+    render();
+    if (!status.gameover) {
+      startTimer();
+    }
+
+  </script>
+</body>
+
+</html>

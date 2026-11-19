@@ -1,0 +1,209 @@
+body {
+  font-family: "Hiragino Maru Gothic ProN", "Hiragino Sans", "Meiryo", sans-serif;
+  background: #fff8ec;
+  color: #4a3b2a;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+main {
+  max-width: 480px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* ===== ペット ===== */
+.pet-area {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.pet {
+  width: 180px;
+  height: 180px;
+  margin: 0 auto;
+  animation: bounce 1.2s infinite;
+}
+
+.pet-svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* 表情の切り替え：いったん全部かくして、今の表情だけ表示 */
+.pet .m-happy,
+.pet .m-worry,
+.pet .m-sad {
+  display: none;
+}
+
+.pet.happy .m-happy,
+.pet.worry .m-worry,
+.pet.sad .m-sad {
+  display: inline;
+}
+
+/* こまっているときは小さくふるえる */
+.pet.worry {
+  animation: shake 0.6s infinite;
+}
+
+/* ゲームオーバー：うすくなって消えていく */
+.pet.gone {
+  animation: none;
+  opacity: 0.25;
+  filter: grayscale(1);
+  transform: translateY(-10px);
+  transition: opacity 1s, transform 1s;
+}
+
+@keyframes shake {
+  0%, 100% { transform: rotate(0); }
+  25% { transform: rotate(-3deg); }
+  75% { transform: rotate(3deg); }
+}
+
+.message {
+  margin-top: 8px;
+  font-weight: bold;
+}
+
+.pet-area.over .message {
+  color: #d9534f;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* ===== バロメータ ===== */
+.meter-area {
+  margin-bottom: 20px;
+}
+
+.meter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.meter-label {
+  width: 70px;
+  font-weight: bold;
+}
+
+.meter-bar {
+  flex: 1;
+  height: 18px;
+  background: #eee;
+  border-radius: 9px;
+  overflow: hidden;
+}
+
+.meter-fill {
+  height: 100%;
+  width: 100%;
+  background: #5cb85c;
+  transition: width 0.4s, background 0.4s;
+}
+
+.meter-fill.warn {
+  background: #f0ad4e;
+}
+
+.meter-fill.danger {
+  background: #d9534f;
+}
+
+.meter-num {
+  width: 36px;
+  text-align: right;
+}
+
+/* ===== ボタン ===== */
+.button-area {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.care-btn {
+  flex: 1;
+  padding: 14px 0;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  background: #f39c12;
+  transition: transform 0.1s, opacity 0.2s;
+}
+
+#asobu { background: #3498db; }
+#souji { background: #1abc9c; }
+
+.care-btn:active {
+  transform: scale(0.95);
+}
+
+.care-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.reset-area {
+  text-align: center;
+}
+
+#reset {
+  padding: 10px 24px;
+  border: 2px solid #999;
+  border-radius: 20px;
+  color: #666;
+  font-weight: bold;
+}
+
+#reset:hover {
+  background: #f2f2f2;
+}
+
+/* ===== お世話日記 ===== */
+.diary {
+  max-width: 480px;
+  margin: 24px auto 0;
+}
+
+.diary h2 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+#list li {
+  background: #fff;
+  border-left: 4px solid #f39c12;
+  border-radius: 6px;
+  padding: 8px 12px;
+  margin-bottom: 8px;
+}
+
+#list .time {
+  font-size: 12px;
+  color: #999;
+}
+
+footer {
+  text-align: center;
+  margin-top: 30px;
+  color: #aaa;
+}

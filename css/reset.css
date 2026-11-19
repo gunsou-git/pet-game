@@ -1,0 +1,29 @@
+/* シンプルなリセットCSS */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html, body, div, span, h1, h2, h3, p, ul, ol, li,
+main, section, footer, button, input, textarea {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+button {
+  cursor: pointer;
+  background: none;
+}
+
+body {
+  line-height: 1.5;
+}
